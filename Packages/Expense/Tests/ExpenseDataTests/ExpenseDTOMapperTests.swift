@@ -9,7 +9,7 @@ func buildsExpenseEndpointFromNetworkConfiguration() {
 
     let URL = ExpenseEndpoint.url(configuration: configuration)
 
-    #expect(URL.absoluteString == "https://example.com/api/b/AMKA")
+    #expect(URL.absoluteString == "https://example.com/api/b/DYZJF")
 }
 
 @Test("Objective-C DTO maps into the domain without leaking transport types")

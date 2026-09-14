@@ -12,8 +12,8 @@ import Testing
 struct ExpenseViewerTests {
 
     @MainActor
-    @Test func productionEndpointUsesHTTPS() {
-        #expect(AppNetworkConfiguration().baseURL.scheme == "https")
+    @Test func productionConfigurationUsesExpectedBaseURL() {
+        #expect(AppNetworkConfiguration().baseURL.absoluteString == "https://www.jsonkeeper.com")
     }
 
 }

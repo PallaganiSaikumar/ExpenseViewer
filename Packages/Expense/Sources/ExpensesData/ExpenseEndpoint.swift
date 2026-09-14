@@ -2,7 +2,7 @@ import Foundation
 
 /// Keeps feature-specific routing out of both the app configuration and generic network code.
 enum ExpenseEndpoint {
-    private static let pathComponents = ["b", "AMKA"]
+    private static let pathComponents = ["b", "DYZJF"]
 
     static func url<Configuration: NetworkConfiguration>(
         configuration: Configuration

@@ -4,17 +4,19 @@ An iOS 17+ SwiftUI application that retrieves expenses through an Objective-C ne
 
 ## Architecture
 
-The application uses two local Swift packages with compile-time target boundaries:
+The application uses two local Swift packages as its compile-time module boundaries. The architectural layers inside
+`Expense` are folders within that single module:
 
 ```text
 ExpenseViewer app (composition root)
-  -> Expense (ExpenseAPI + ExpenseAPIClient)
-  -> ExpensesPresentation (SwiftUI + view model)
-  -> ExpensesDomain (entities, repository contract, use case)
-  -> ExpensesData (repository implementation and DTO mapping)
-  -> Network (one Objective-C module)
-       -> Core (generic GET/POST transport and network errors)
-       -> ExpenseRemote (JSON parser, DTO and service factory)
+├── Expense package/module
+│   ├── Expense (public ExpenseAPI + ExpenseAPIClient)
+│   ├── ExpensesPresentation (SwiftUI + view model)
+│   ├── ExpensesDomain (entities, repository contract, use case)
+│   └── ExpensesData (repository implementation and DTO mapping)
+└── Network package/module (Objective-C)
+    ├── Core (generic GET/POST transport and network errors)
+    └── ExpenseRemote (JSON parser, DTO and service factory)
 ```
 
 `Network` is one fully Objective-C module. Its `Core` folder is domain-agnostic, while `ExpenseRemote` transforms raw JSON into typed Objective-C DTOs. `Expense` is one Swift module with a public `ExpenseAPI` contract, its `ExpenseAPIClient` implementation, and Domain, Data, and Presentation folders kept as internal architectural layers.
@@ -59,7 +61,8 @@ For compatibility with the unavailable sample endpoint, the parser also recogniz
 2. Select the `ExpenseViewer` scheme and an iOS 17+ simulator.
 3. Build and run.
 
-The supplied endpoint, `https://jsonkeeper.com/b/AMKA`, returned HTTP 404 during implementation on September 14, 2026. The app therefore currently demonstrates its typed error and retry state until the endpoint is restored or replaced in `AppConfiguration`.
+`AppNetworkConfiguration` supplies the API base URL, `https://www.jsonkeeper.com`, while the Expense package owns the
+feature path, `/b/DYZJF`.
 
 ## Tests
 
